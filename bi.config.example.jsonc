@@ -1,0 +1,24 @@
+{
+  // Copy to bi.config.jsonc and edit. Secrets come from env (apiKeyEnv), never this file.
+  "defaultModel": "local",
+  "models": {
+    // Direct-to-provider entries. To use a LiteLLM proxy instead, point every entry at the
+    // same proxy baseUrl with one shared apiKeyEnv and let modelId select the upstream.
+    "local": {
+      "baseUrl": "http://localhost:11434/v1",
+      "modelId": "gemma4:31b",
+      "contextWindow": 256000,
+      "params": { "temperature": 0.2 }
+    },
+    "claude": {
+      "baseUrl": "https://api.anthropic.com/v1",
+      "modelId": "claude-opus-4-8",
+      "apiKeyEnv": "ANTHROPIC_API_KEY",
+      "contextWindow": 200000
+    }
+  },
+  "maxIterations": 25,
+  "approval": "ask", // ask | auto-edit | full-auto
+  "retry": { "maxRetries": 4, "baseDelayMs": 500 },
+  "logFile": ".bi/trace.jsonl"
+}
